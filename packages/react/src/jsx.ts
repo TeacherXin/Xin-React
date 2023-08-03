@@ -5,14 +5,14 @@ import {
 	Key,
 	Props,
 	ElementType,
-	ReactElement
+	ReactElementType
 } from '../../share/ReactType';
 const ReactElement = function (
 	type: Type,
 	ref: Ref,
 	key: Key,
 	props: Props
-): ReactElement {
+): ReactElementType {
 	const element = {
 		$$typeof: REACT_ELEMENT_TYPE,
 		type,
@@ -29,7 +29,7 @@ export const jsx = (
 	type: ElementType,
 	config: any,
 	...maybeChldren: any
-): ReactElement => {
+): ReactElementType => {
 	let key: Key = null;
 	let ref: Ref = null;
 	const props: Props = null;

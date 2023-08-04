@@ -1,4 +1,4 @@
-import { REACT_ELEMENT_TYPE } from '../../share/ReactSymbol';
+import { REACT_ELEMENT_TYPE } from 'share/ReactSymbol';
 import {
 	Type,
 	Ref,
@@ -6,7 +6,7 @@ import {
 	Props,
 	ElementType,
 	ReactElementType
-} from '../../share/ReactType';
+} from 'share/ReactType';
 const ReactElement = function (
 	type: Type,
 	ref: Ref,
@@ -29,10 +29,10 @@ export const jsx = (
 	type: ElementType,
 	config: any,
 	...maybeChldren: any
-): ReactElementType => {
+) => {
 	let key: Key = null;
 	let ref: Ref = null;
-	const props: Props = null;
+	const props: Props = {};
 	for (const propName in config) {
 		if (propName === 'key' && config[propName] !== undefined) {
 			key = config[propName];
@@ -56,4 +56,25 @@ export const jsx = (
 	return ReactElement(type, ref, key, props);
 };
 
-export const jsxDEV = jsx;
+export const jsxDEV = (
+	type: ElementType,
+	config: any,
+) => {
+	let key: Key = null;
+	let ref: Ref = null;
+	const props: Props = {};
+	for (const propName in config) {
+		if (propName === 'key' && config[propName] !== undefined) {
+			key = config[propName];
+			continue;
+		}
+		if (propName === 'ref' && config[propName] !== undefined) {
+			ref = config[propName];
+			continue;
+		}
+		if ({}.hasOwnProperty.call(config, propName)) {
+			props[propName] = config[propName];
+		}
+	}
+	return ReactElement(type, ref, key, props);
+};

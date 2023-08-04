@@ -37,13 +37,13 @@ export default [
     input:`${pkgPath}/src/jsx.ts`,
     output:[
       {
-        file: `${pkgDistPath}/jsx-runtimer.js`,
-        name: 'jsx-runtimer.js',
+        file: `${pkgDistPath}/jsx-runtime.js`,
+        name: 'jsx-runtime.js',
         format: 'umd'
       },
       {
-        file: `${pkgDistPath}/jsx-dev-runtimer.js`,
-        name: 'jsx-dev-runtimer.js',
+        file: `${pkgDistPath}/jsx-dev-runtime.js`,
+        name: 'jsx-dev-runtime.js',
         format: 'umd'
       }
     ],

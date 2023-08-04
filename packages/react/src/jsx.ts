@@ -25,11 +25,7 @@ const ReactElement = function (
 	return element;
 };
 
-export const jsx = (
-	type: ElementType,
-	config: any,
-	...maybeChldren: any
-) => {
+export const jsx = (type: ElementType, config: any, ...maybeChldren: any) => {
 	let key: Key = null;
 	let ref: Ref = null;
 	const props: Props = {};
@@ -56,10 +52,7 @@ export const jsx = (
 	return ReactElement(type, ref, key, props);
 };
 
-export const jsxDEV = (
-	type: ElementType,
-	config: any,
-) => {
+export const jsxDEV = (type: ElementType, config: any) => {
 	let key: Key = null;
 	let ref: Ref = null;
 	const props: Props = {};

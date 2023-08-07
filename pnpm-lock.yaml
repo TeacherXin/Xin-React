@@ -60,6 +60,12 @@ importers:
         specifier: 'workspace: *'
         version: link:../share
 
+  packages/react-reconciler:
+    dependencies:
+      share:
+        specifier: 'workspace: *'
+        version: link:../share
+
   packages/share: {}
 
 packages:

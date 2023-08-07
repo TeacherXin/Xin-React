@@ -10,21 +10,21 @@ function prepareFreshStack(root: FilberRootNode) {
 }
 
 export function scheduleUpdateOnFilber(filber: FilberNode) {
-  const root = markUpdateFromFilberToRoot(filber)
-  renderRoot(root)
+	const root = markUpdateFromFilberToRoot(filber);
+	renderRoot(root);
 }
 
 function markUpdateFromFilberToRoot(filber: FilberNode) {
-  let node = filber;
-  let parent = filber.return;
-  while(parent !== null){
-    node = parent;
-    parent = node.return;
-  }
-  if(node.tag === HostRoot) {
-    return node.stateNode;
-  }
-  return null;
+	let node = filber;
+	let parent = filber.return;
+	while (parent !== null) {
+		node = parent;
+		parent = node.return;
+	}
+	if (node.tag === HostRoot) {
+		return node.stateNode;
+	}
+	return null;
 }
 
 function renderRoot(root: FilberRootNode) {

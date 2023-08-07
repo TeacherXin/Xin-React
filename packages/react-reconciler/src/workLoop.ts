@@ -1,14 +1,33 @@
-import { FilberNode } from './filber';
+import { createWorkInProgress, FilberNode, FilberRootNode } from './filber';
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
+import { HostRoot } from './workTags';
 
 let workInProgress: FilberNode | null = null;
 
-function prepareFreshStack(filber: FilberNode) {
-	workInProgress = filber;
+function prepareFreshStack(root: FilberRootNode) {
+	workInProgress = createWorkInProgress(root.current, {});
 }
 
-function renderRoot(root: FilberNode) {
+export function scheduleUpdateOnFilber(filber: FilberNode) {
+  const root = markUpdateFromFilberToRoot(filber)
+  renderRoot(root)
+}
+
+function markUpdateFromFilberToRoot(filber: FilberNode) {
+  let node = filber;
+  let parent = filber.return;
+  while(parent !== null){
+    node = parent;
+    parent = node.return;
+  }
+  if(node.tag === HostRoot) {
+    return node.stateNode;
+  }
+  return null;
+}
+
+function renderRoot(root: FilberRootNode) {
 	prepareFreshStack(root);
 
 	do {

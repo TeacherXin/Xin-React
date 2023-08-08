@@ -2,6 +2,8 @@ import { createWorkInProgress, FilberNode, FilberRootNode } from './filber';
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
 import { HostRoot } from './workTags';
+import { MutationMask, NoFlags } from './filberFlags';
+import { commitMutationEffects } from './commitWork';
 
 let workInProgress: FilberNode | null = null;
 
@@ -43,7 +45,26 @@ function renderRoot(root: FilberRootNode) {
 	const finishedWork = root.current.alternate;
 	root.finishedWork = finishedWork;
 
-	// commitRoot(root)
+	commitRoot(root)
+}
+
+function commitRoot(root: FilberRootNode) {
+	const finishedWork = root.finishedWork;
+	if(finishedWork === null) {
+		return;
+	}
+	root.finishedWork = null;
+
+	const subtreeHasEffect = (finishedWork.subtreeFlags & MutationMask) !== NoFlags;
+	const rootHasEffect = (finishedWork.flags & MutationMask) !== NoFlags;
+
+	if(subtreeHasEffect || rootHasEffect){
+		commitMutationEffects(finishedWork)
+		root.current = finishedWork;
+	}else{
+		root.current = finishedWork;
+	}
+
 }
 
 function workLoop() {

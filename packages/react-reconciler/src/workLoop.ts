@@ -39,6 +39,12 @@ function renderRoot(root: FilberRootNode) {
 			workInProgress = null;
 		}
 	} while (true);
+
+	const finishedWork = root.current.alternate;
+	root.finishedWork = finishedWork;
+
+	// commitRoot(root)
+
 }
 
 function workLoop() {
@@ -52,7 +58,7 @@ function performUnitOfWork(filber: FilberNode) {
 	filber.memoizedProps = filber.pendingProps;
 
 	if (next === null) {
-		completeUnitOfWork(next);
+		completeUnitOfWork(filber);
 	} else {
 		workInProgress = next;
 	}

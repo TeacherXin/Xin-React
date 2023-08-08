@@ -1,5 +1,5 @@
-import { Props, Key, Ref } from 'share/ReactType';
-import { WorkTag } from './workTags';
+import { Props, Key, Ref, ReactElementType } from 'share/ReactType';
+import { WorkTag,FunctionComponent,HostComponent } from './workTags';
 import { Flags, NoFlags } from './filberFlags';
 import { Container } from './hostConfig';
 
@@ -21,8 +21,10 @@ export class FilberNode {
 	memoizedState: any;
 	updateQueue: unknown;
 
+  //用于diff算法，如果是首屏渲染为null
 	alternate: FilberNode | null;
 	flags: Flags;
+	subtreeFlags: Flags;
 
 	constructor(tag: WorkTag, pendingProps: Props, key: Key) {
 		this.tag = tag;
@@ -43,6 +45,7 @@ export class FilberNode {
 		this.alternate = null;
 
 		this.flags = NoFlags;
+		this.subtreeFlags = NoFlags;
 		this.updateQueue = null;
 	}
 }
@@ -81,5 +84,21 @@ export const createWorkInProgress = (
 	wip.child = current.child;
 	wip.memoizedProps = current.memoizedProps;
 	wip.memoizedState = current.memoizedState;
+	wip.subtreeFlags = current.subtreeFlags;
 	return wip;
 };
+
+export function createFilberFromElement(element: ReactElementType): FilberNode {
+  const {key, type, props} = element;
+  let filberTag: WorkTag = FunctionComponent;
+
+  if(typeof type === 'string') {
+    filberTag = HostComponent;
+  }else if(typeof type === 'function'){
+    console.error('未定义的type')
+  }
+
+  const filber = new FilberNode(filberTag, props, key);
+  filber.type = type;
+  return filber
+}

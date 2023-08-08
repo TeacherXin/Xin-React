@@ -8,11 +8,14 @@ export const createInstance = (type: string, props: any): Instance => {
 };
 
 export const createTextInstance = (content: string) => {
-	return document.createTextNode(content)
+	return document.createTextNode(content);
 };
 
-export const appendInitialChild = (parent: Instance | Container, child: Instance) => {
-	parent.appendChild(child)
+export const appendInitialChild = (
+	parent: Instance | Container,
+	child: Instance
+) => {
+	parent.appendChild(child);
 };
 
-export const appendChildToContainer = appendInitialChild
+export const appendChildToContainer = appendInitialChild;

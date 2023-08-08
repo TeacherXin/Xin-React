@@ -77,7 +77,7 @@ function workLoop() {
 }
 
 function performUnitOfWork(filber: FilberNode) {
-		//给所有filberNode绑定child属性，通过updateQueue里面的更细内容。此时更新好child的filberNode是root.current.alternate
+	//给所有filberNode绑定child属性，通过updateQueue里面的更细内容。此时更新好child的filberNode是root.current.alternate
 	const next = beginWork(filber);
 	filber.memoizedProps = filber.pendingProps;
 

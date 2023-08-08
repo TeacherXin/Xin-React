@@ -6,9 +6,12 @@ import { HostComponent, HostRoot, HostText } from './workTags';
 let nextEffect: FilberNode | null = null;
 export const commitMutationEffects = (finishedWork: FilberNode) => {
 	nextEffect = finishedWork;
-	while(nextEffect !== null){
+	while (nextEffect !== null) {
 		const child = nextEffect.child;
-		if ((nextEffect.subtreeFlags & MutationMask) !== NoFlags && child !== null) {
+		if (
+			(nextEffect.subtreeFlags & MutationMask) !== NoFlags &&
+			child !== null
+		) {
 			nextEffect = child;
 		} else {
 			up: while (nextEffect !== null) {
@@ -53,7 +56,7 @@ function getHostParent(filber: FilberNode): Container | null {
 		parent = parent.return;
 	}
 	console.error('没找到对应的父节点');
-	return null
+	return null;
 }
 
 function appendPlacementNodeIntoContainer(

@@ -1,5 +1,5 @@
 import { Props, Key, Ref, ReactElementType } from 'share/ReactType';
-import { WorkTag,FunctionComponent,HostComponent } from './workTags';
+import { WorkTag, FunctionComponent, HostComponent } from './workTags';
 import { Flags, NoFlags } from './filberFlags';
 import { Container } from './hostConfig';
 
@@ -21,7 +21,7 @@ export class FilberNode {
 	memoizedState: any;
 	updateQueue: unknown;
 
-  //用于diff算法，如果是首屏渲染为null
+	//用于diff算法，如果是首屏渲染为null
 	alternate: FilberNode | null;
 	flags: Flags;
 	subtreeFlags: Flags;
@@ -89,16 +89,16 @@ export const createWorkInProgress = (
 };
 
 export function createFilberFromElement(element: ReactElementType): FilberNode {
-  const {key, type, props} = element;
-  let filberTag: WorkTag = FunctionComponent;
+	const { key, type, props } = element;
+	let filberTag: WorkTag = FunctionComponent;
 
-  if(typeof type === 'string') {
-    filberTag = HostComponent;
-  }else if(typeof type === 'function'){
-    console.error('未定义的type')
-  }
+	if (typeof type === 'string') {
+		filberTag = HostComponent;
+	} else if (typeof type === 'function') {
+		console.error('未定义的type');
+	}
 
-  const filber = new FilberNode(filberTag, props, key);
-  filber.type = type;
-  return filber
+	const filber = new FilberNode(filberTag, props, key);
+	filber.type = type;
+	return filber;
 }

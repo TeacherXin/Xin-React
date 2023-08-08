@@ -44,7 +44,6 @@ function renderRoot(root: FilberRootNode) {
 	root.finishedWork = finishedWork;
 
 	// commitRoot(root)
-
 }
 
 function workLoop() {

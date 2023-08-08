@@ -39,13 +39,13 @@ export const processUpdateQueue = <State>(
 		memoizedState: baseState
 	};
 
-  if(pendingUpdate !== null) {
-    const action = pendingUpdate.action;
-    if (action instanceof Function) {
-      result.memoizedState = action(baseState);
-    } else {
-      result.memoizedState = action;
-    }
-  }
-  return result;
+	if (pendingUpdate !== null) {
+		const action = pendingUpdate.action;
+		if (action instanceof Function) {
+			result.memoizedState = action(baseState);
+		} else {
+			result.memoizedState = action;
+		}
+	}
+	return result;
 };

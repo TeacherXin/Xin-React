@@ -45,26 +45,26 @@ function renderRoot(root: FilberRootNode) {
 	const finishedWork = root.current.alternate;
 	root.finishedWork = finishedWork;
 
-	commitRoot(root)
+	commitRoot(root);
 }
 
 function commitRoot(root: FilberRootNode) {
 	const finishedWork = root.finishedWork;
-	if(finishedWork === null) {
+	if (finishedWork === null) {
 		return;
 	}
 	root.finishedWork = null;
 
-	const subtreeHasEffect = (finishedWork.subtreeFlags & MutationMask) !== NoFlags;
+	const subtreeHasEffect =
+		(finishedWork.subtreeFlags & MutationMask) !== NoFlags;
 	const rootHasEffect = (finishedWork.flags & MutationMask) !== NoFlags;
 
-	if(subtreeHasEffect || rootHasEffect){
-		commitMutationEffects(finishedWork)
+	if (subtreeHasEffect || rootHasEffect) {
+		commitMutationEffects(finishedWork);
 		root.current = finishedWork;
-	}else{
+	} else {
 		root.current = finishedWork;
 	}
-
 }
 
 function workLoop() {

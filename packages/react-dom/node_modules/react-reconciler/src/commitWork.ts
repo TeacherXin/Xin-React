@@ -6,18 +6,20 @@ import { HostComponent, HostRoot, HostText } from './workTags';
 let nextEffect: FilberNode | null = null;
 export const commitMutationEffects = (finishedWork: FilberNode) => {
 	nextEffect = finishedWork;
-	const child = nextEffect.child;
-	if ((nextEffect.subtreeFlags & MutationMask) !== NoFlags && child !== null) {
-		nextEffect = child;
-	} else {
-		up: while (nextEffect !== null) {
-			commitMutationEffectsOnFilber(nextEffect);
-			const sibling: FilberNode | null = nextEffect.sibling;
-			if (sibling !== null) {
-				nextEffect = sibling;
-				break up;
+	while(nextEffect !== null){
+		const child = nextEffect.child;
+		if ((nextEffect.subtreeFlags & MutationMask) !== NoFlags && child !== null) {
+			nextEffect = child;
+		} else {
+			up: while (nextEffect !== null) {
+				commitMutationEffectsOnFilber(nextEffect);
+				const sibling: FilberNode | null = nextEffect.sibling;
+				if (sibling !== null) {
+					nextEffect = sibling;
+					break up;
+				}
+				nextEffect = nextEffect.return;
 			}
-			nextEffect = nextEffect.return;
 		}
 	}
 };
@@ -33,10 +35,12 @@ function commitMutationEffectsOnFilber(finishedWork: FilberNode) {
 function commitPlacement(finishedWork: FilberNode) {
 	console.error('执行placeMent');
 	const hostParent = getHostParent(finishedWork);
-	appendPlacementNodeIntoContainer(finishedWork, hostParent);
+	if (hostParent !== null) {
+		appendPlacementNodeIntoContainer(finishedWork, hostParent);
+	}
 }
 
-function getHostParent(filber: FilberNode) {
+function getHostParent(filber: FilberNode): Container | null {
 	let parent = filber.return;
 	while (parent) {
 		const parentTag = parent.tag;
@@ -49,6 +53,7 @@ function getHostParent(filber: FilberNode) {
 		parent = parent.return;
 	}
 	console.error('没找到对应的父节点');
+	return null
 }
 
 function appendPlacementNodeIntoContainer(

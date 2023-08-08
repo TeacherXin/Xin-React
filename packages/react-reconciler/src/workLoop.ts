@@ -12,6 +12,7 @@ function prepareFreshStack(root: FilberRootNode) {
 }
 
 export function scheduleUpdateOnFilber(filber: FilberNode) {
+	//根据filber找到最外层的filber，然后返回stateNode（就是FilberRootNode）
 	const root = markUpdateFromFilberToRoot(filber);
 	renderRoot(root);
 }
@@ -30,6 +31,7 @@ function markUpdateFromFilberToRoot(filber: FilberNode) {
 }
 
 function renderRoot(root: FilberRootNode) {
+	//将当前workingProgress指针指向root
 	prepareFreshStack(root);
 
 	do {
@@ -42,6 +44,7 @@ function renderRoot(root: FilberRootNode) {
 		}
 	} while (true);
 
+	//将更新好child的alternate赋值给finishedWork
 	const finishedWork = root.current.alternate;
 	root.finishedWork = finishedWork;
 
@@ -74,10 +77,12 @@ function workLoop() {
 }
 
 function performUnitOfWork(filber: FilberNode) {
+		//给所有filberNode绑定child属性，通过updateQueue里面的更细内容。此时更新好child的filberNode是root.current.alternate
 	const next = beginWork(filber);
 	filber.memoizedProps = filber.pendingProps;
 
 	if (next === null) {
+		//将所有filberNode的DOM创建好，挂载在stateNode上
 		completeUnitOfWork(filber);
 	} else {
 		workInProgress = next;

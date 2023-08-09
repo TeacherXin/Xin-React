@@ -5,7 +5,12 @@ import {
 	createInstance,
 	createTextInstance
 } from './hostConfig';
-import { FunctionComponent, HostComponent, HostRoot, HostText } from './workTags';
+import {
+	FunctionComponent,
+	HostComponent,
+	HostRoot,
+	HostText
+} from './workTags';
 
 /**
  * 构建离屏的DOM树

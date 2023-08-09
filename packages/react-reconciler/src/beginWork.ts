@@ -3,7 +3,12 @@ import { mountChildFilbers, reconcileChildFilbers } from './childFilbers';
 import { FilberNode } from './filber';
 import { renderWithHooks } from './filberHook';
 import { processUpdateQueue, UpdateQueue } from './updateQueue';
-import { FunctionComponent, HostComponent, HostRoot, HostText } from './workTags';
+import {
+	FunctionComponent,
+	HostComponent,
+	HostRoot,
+	HostText
+} from './workTags';
 
 export const beginWork = (wip: FilberNode) => {
 	switch (wip.tag) {
@@ -14,7 +19,7 @@ export const beginWork = (wip: FilberNode) => {
 			return updateHostComponent(wip);
 		}
 		case FunctionComponent: {
-			return updateFunctionComponent(wip)
+			return updateFunctionComponent(wip);
 		}
 		case HostText: {
 			return null;

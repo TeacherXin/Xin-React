@@ -5,7 +5,7 @@ import {
 	createInstance,
 	createTextInstance
 } from './hostConfig';
-import { HostComponent, HostRoot, HostText } from './workTags';
+import { FunctionComponent, HostComponent, HostRoot, HostText } from './workTags';
 
 /**
  * 构建离屏的DOM树
@@ -41,6 +41,11 @@ export const completeWork = (wip: FilberNode) => {
 			return null;
 		}
 		case HostRoot: {
+			bubbleProperties(wip);
+			return null;
+		}
+		case FunctionComponent: {
+			bubbleProperties(wip);
 			return null;
 		}
 		default: {

@@ -1,8 +1,9 @@
 import { ReactElementType } from 'share/ReactType';
 import { mountChildFilbers, reconcileChildFilbers } from './childFilbers';
 import { FilberNode } from './filber';
+import { renderWithHooks } from './filberHook';
 import { processUpdateQueue, UpdateQueue } from './updateQueue';
-import { HostComponent, HostRoot, HostText } from './workTags';
+import { FunctionComponent, HostComponent, HostRoot, HostText } from './workTags';
 
 export const beginWork = (wip: FilberNode) => {
 	switch (wip.tag) {
@@ -11,6 +12,9 @@ export const beginWork = (wip: FilberNode) => {
 		}
 		case HostComponent: {
 			return updateHostComponent(wip);
+		}
+		case FunctionComponent: {
+			return updateFunctionComponent(wip)
 		}
 		case HostText: {
 			return null;
@@ -37,6 +41,13 @@ function updateHostRoot(wip: FilberNode) {
 	wip.memoizedProps = memoizedState;
 	//对应子FilberNode的ReactElement
 	const nextChildren = wip.memoizedProps;
+	reconcileChildren(wip, nextChildren);
+	return wip.child;
+}
+
+function updateFunctionComponent(wip: FilberNode) {
+	const nextProps = wip.pendingProps;
+	const nextChildren = renderWithHooks(wip);
 	reconcileChildren(wip, nextChildren);
 	return wip.child;
 }

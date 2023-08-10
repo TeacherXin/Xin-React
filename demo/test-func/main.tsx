@@ -10,9 +10,9 @@ function App() {
 }
 
 function Child() {
-	return <span>big-react</span>;
+	return <span>xin-react</span>;
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<App />
+	<div><span>123</span></div>
 );

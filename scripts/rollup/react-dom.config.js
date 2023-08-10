@@ -1,7 +1,7 @@
 import {getPackageJson, resolvePkgPath, getBaseRollupPlugins} from './utils'
 import generatePackageJson from 'rollup-plugin-generate-package-json'
 
-const {name, module} = getPackageJson('react-dom');
+const {name, module, peerDependencies} = getPackageJson('react-dom');
 
 //获取react包的目录
 const pkgPath = resolvePkgPath(name)
@@ -10,7 +10,7 @@ const pkgDistPath = resolvePkgPath(name, true)
 
 export default [
   {
-    //react包的打包
+    //react-dom包的打包
     input:`${pkgPath}/${module}`,
     output:[
       {
@@ -24,6 +24,7 @@ export default [
         format: 'umd'
       }
     ],
+    external: [...Object.keys(peerDependencies)],
     plugins: [...getBaseRollupPlugins(),
       //打包时带上react的package.json
       generatePackageJson({

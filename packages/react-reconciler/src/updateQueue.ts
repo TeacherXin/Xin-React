@@ -7,7 +7,7 @@ export interface Update<State> {
 export interface UpdateQueue<State> {
 	shared: {
 		pending: Update<State> | null;
-	},
+	};
 	dispath: null;
 }
 

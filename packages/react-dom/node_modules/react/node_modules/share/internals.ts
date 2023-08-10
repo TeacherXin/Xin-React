@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-console.log(React)
+console.log(React);
 
 const internals = React.SECRET_INTERNALS;
 

@@ -1,18 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 
 function App() {
+	console.log(useState)
+	const [num, setNum] = useState(100)
+	window['setNum'] = setNum
 	return (
 		<div>
-			<Child />
+			<span>{num}</span>
 		</div>
 	);
 }
 
-function Child() {
-	return <span>xin-react</span>;
-}
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<div><span>123</span></div>
+	<App />
 );

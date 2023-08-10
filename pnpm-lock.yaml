@@ -90,11 +90,18 @@ importers:
 
   packages/react-reconciler:
     dependencies:
+      react:
+        specifier: 'workspace: *'
+        version: link:../react
       share:
         specifier: 'workspace: *'
         version: link:../share
 
-  packages/share: {}
+  packages/share:
+    dependencies:
+      react:
+        specifier: 'workspace: *'
+        version: link:../react
 
 packages:
 

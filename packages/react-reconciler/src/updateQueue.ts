@@ -7,7 +7,8 @@ export interface Update<State> {
 export interface UpdateQueue<State> {
 	shared: {
 		pending: Update<State> | null;
-	};
+	},
+	dispath: null;
 }
 
 export const createUpdate = <State>(action: Action<State>): Update<State> => {
@@ -20,7 +21,8 @@ export const createUpdateQueue = <State>() => {
 	return {
 		shared: {
 			pending: null
-		}
+		},
+		dispath: null
 	} as UpdateQueue<State>;
 };
 

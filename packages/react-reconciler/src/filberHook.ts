@@ -1,25 +1,24 @@
 import { FilberNode } from './filber';
-import internals from 'share/internals'
+import internals from 'share/internals';
 
 let currentlyRenderingFilber: FilberNode | null = null;
-let workInProgressHook: Hook | null = null;
-const {currentDispatcher} = internals;
+const workInProgressHook: Hook | null = null;
+const { currentDispatcher } = internals;
 
 interface Hook {
 	memoizedState: any;
 	updateQueue: unknown;
-	next: Hook | null
+	next: Hook | null;
 }
 
 export function renderWithHooks(wip: FilberNode) {
-
 	currentlyRenderingFilber = wip;
 	wip.memoizedState = null;
 
 	const current = wip.alternate;
-	if(current !== null){
+	if (current !== null) {
 		//更新
-	}else{
+	} else {
 		//mount
 	}
 

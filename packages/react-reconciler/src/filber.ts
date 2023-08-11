@@ -26,7 +26,7 @@ export class FilberNode {
 	flags: Flags;
 	subtreeFlags: Flags;
 
-	deletions: FilberNode[] | null
+	deletions: FilberNode[] | null;
 
 	constructor(tag: WorkTag, pendingProps: Props, key: Key) {
 		this.tag = tag;
@@ -50,7 +50,7 @@ export class FilberNode {
 		this.subtreeFlags = NoFlags;
 		this.updateQueue = null;
 
-		this.deletions = null
+		this.deletions = null;
 	}
 }
 

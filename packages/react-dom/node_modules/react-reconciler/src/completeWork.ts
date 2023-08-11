@@ -13,7 +13,7 @@ import {
 } from './workTags';
 
 function markUpdate(filber: FilberNode) {
-	filber.flags |= Update 
+	filber.flags |= Update;
 }
 
 /**
@@ -43,8 +43,8 @@ export const completeWork = (wip: FilberNode) => {
 				//更新
 				const oldText = current.memoizedProps.content;
 				const newText = newProps.content;
-				if(oldText !== newText){
-					markUpdate(wip)
+				if (oldText !== newText) {
+					markUpdate(wip);
 				}
 			} else {
 				//构建DOM

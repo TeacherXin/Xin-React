@@ -1,5 +1,5 @@
 import { FilberNode } from './filber';
-import { NoFlags } from './filberFlags';
+import { NoFlags, Update } from './filberFlags';
 import {
 	appendInitialChild,
 	createInstance,
@@ -11,6 +11,10 @@ import {
 	HostRoot,
 	HostText
 } from './workTags';
+
+function markUpdate(filber: FilberNode) {
+	filber.flags |= Update 
+}
 
 /**
  * 构建离屏的DOM树
@@ -37,6 +41,11 @@ export const completeWork = (wip: FilberNode) => {
 		case HostText: {
 			if (current !== null && wip.stateNode !== null) {
 				//更新
+				const oldText = current.memoizedProps.content;
+				const newText = newProps.content;
+				if(oldText !== newText){
+					markUpdate(wip)
+				}
 			} else {
 				//构建DOM
 				const instance = createTextInstance(newProps.content);

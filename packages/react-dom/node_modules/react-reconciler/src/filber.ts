@@ -26,6 +26,8 @@ export class FilberNode {
 	flags: Flags;
 	subtreeFlags: Flags;
 
+	deletions: FilberNode[] | null
+
 	constructor(tag: WorkTag, pendingProps: Props, key: Key) {
 		this.tag = tag;
 		this.key = key;
@@ -47,6 +49,8 @@ export class FilberNode {
 		this.flags = NoFlags;
 		this.subtreeFlags = NoFlags;
 		this.updateQueue = null;
+
+		this.deletions = null
 	}
 }
 
@@ -77,6 +81,7 @@ export const createWorkInProgress = (
 	} else {
 		wip.pendingProps = pendingProps;
 		wip.flags = NoFlags;
+		wip.deletions = null;
 	}
 
 	wip.type = current.type;
